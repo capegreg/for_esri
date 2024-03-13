@@ -1,0 +1,890 @@
+#aerialMapViewer {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: #212529;
+}
+
+.symbolColorSubject {
+  color: rgba(31, 120, 180, 0.4);
+}
+
+.bufferFillSymbol {
+  color: rgba(11, 53, 51, 1);
+  color: rgba(94, 248, 241, 0.5);
+}
+.a {
+  color: rgba(31, 120, 180, 0.4);
+}
+.pointSymbol {
+  color: rgba(255, 77, 106, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.polylineSymbol {
+  color: rgba(211, 132, 80, 0.7);
+}
+
+.polygonSymbol {
+  color: rgba(150, 150, 150, 0.2);
+  color: rgba(252, 251, 253, 1);
+}
+
+.symbolLineFeature {
+  color: rgba(66, 244, 206, 1);
+}
+
+.symbolFillFeature {
+  color: rgba(66, 244, 206, 0.2);
+  color: rgba(66, 244, 206, 1);
+}
+
+.symbolFill {
+  color: rgba(11, 53, 51, 1);
+}
+
+.symbolColor {
+  color: rgba(153, 52, 4, 0.4);
+  color: rgba(31, 120, 180, 0.4);
+}
+
+#aerialMapViewer.swiping::after {
+  content: "Use two fingers to move the map.";
+  color: #fff;
+  font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  pointer-events: none;
+}
+#aerialMapViewer.noswiping::after {
+  content: "Not available during measuring.";
+  color: #fff;
+  font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  pointer-events: none;
+}
+#aerialMapViewer.zooming::after {
+  white-space: pre-wrap;
+  content: "To zoom in, please double-click the map\A or use +/- buttons.";
+  color: #fff;
+  font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  pointer-events: none;
+}
+#aerialMapViewer.measure-canceled::after {
+  white-space: pre-wrap;
+  content: "Measurement Canceled.\AThe map may not be moved, pinched, or rotated during an active measurement.\APlease try again.";
+  color: #fff;
+  font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  pointer-events: none;
+}
+.close::before {
+  right: 6px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.close:hover {
+  filter: opacity(30%);
+  opacity: 0.3;
+}
+
+calcite-loader {
+  align-self: center;
+  justify-self: center;
+}
+
+.calcite-pao {
+  --calcite-ui-brand: #039851;
+  --calcite-ui-brand-hover: #008d52;
+}
+
+.calcite-pao calcite-chip {
+  --calcite-ui-foreground-2: var(--calcite-ui-brand);
+  --calcite-ui-text-1: white;
+  margin-inline-end: 0.75rem;
+}
+
+#pao-buffer-slider {
+  margin: 0 4px 0 2px;
+}
+
+.grid-display {
+  min-height: 329px;
+  max-height: 329px;
+  height: 100%;
+}
+
+.subject-parcel-spacer,
+.subject-parcel-icon {
+  font-family: "Font Awesome 5 Pro" !important;
+  font-weight: 900;
+  font-size: 0.8rem !important;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.subject-parcel-icon::before {
+  content: "\f192";
+  color: #183153;
+  padding-right: 4px;
+}
+
+.subject-parcel-spacer::before {
+  content: "\f192";
+  font-weight: 400;
+  padding-right: 4px;
+}
+
+#pao-buffer-container {
+  overflow-y: auto;
+}
+
+.clear-checked::after {
+  content: "\f058";
+  font-family: "Font Awesome 5 Pro" !important;
+  font-weight: 900;
+  font-size: 1rem !important;
+  display: inline-block;
+  color: #014c8d;
+  margin-left: 6px;
+}
+
+.checked-cleared::after {
+  content: "\f058";
+  font-family: "Font Awesome 5 Pro" !important;
+  font-weight: 300;
+  font-size: 1rem !important;
+  display: inline-block;
+  color: #014c8d;
+  margin-left: 6px;
+}
+
+/* fix */
+div.dt-button-collection .dt-button {
+  min-width: 1px !important;
+}
+
+/* fix */
+.dropdown-menu {
+  width: 1px !important;
+}
+
+.button-page-length.active,
+.button-page-length:active {
+  background-color: #0a0c28;
+  color: #67ffe8;
+}
+
+.highlight {
+  background-color: rgba(66, 244, 206, 0.1) !important;
+}
+
+.button-page-length:hover,
+.pao-dt-buttons:hover {
+  background-color: #0a0c28;
+  color: #67ffe8;
+}
+
+.pao-dt-buttons:hover .fa-file-spreadsheet:before,
+.pao-dt-buttons:hover .fa-file-csv:before,
+.pao-dt-buttons:hover .fa-file-pdf:before,
+.pao-dt-buttons:hover .fa-print:before {
+  /* content:"\f0c5"; */
+  color: #67ffe8;
+  /* opacity:0.4; */
+}
+
+/* Note: esri and pictometry will not display without fixed width and height */
+#titleDiv {
+  position: absolute;
+  height: 55px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #f8f8f8;
+  background: #464646;
+  z-index: 1;
+}
+
+#title {
+  margin: 2px;
+  padding: 6px;
+  font-size: 20px;
+  color: inherit;
+  overflow: hidden;
+}
+
+#title img {
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+}
+
+#title a,
+a:hover {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.buffer-tabs {
+  margin-bottom: 2px;
+}
+
+.pao-parcel-search-notfound {
+  display: inline-flex;
+  margin-left: 2px;
+  color: #ca1515;
+  font-size: 1rem;
+  width: auto;
+}
+
+.shake {
+  animation: shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* transform font color to indicate change */
+.trans-font {
+  -webkit-animation: color-trans 1s ease-in-out;
+  -moz-animation: color-trans 1s ease-in-out;
+  -o-animation: color-trans 1s ease-in-out;
+  -ms-animation: color-trans 1s ease-in-out;
+  animation: color-trans 1s ease-in-out;
+}
+
+@-moz-keyframes color-trans {
+  0% {
+    color: #d47500;
+  }
+  25% {
+    color: #aa6b51;
+  }
+  50% {
+    color: #914f15;
+  }
+  75% {
+    color: #802200;
+  }
+  100% {
+    color: #352903;
+  }
+}
+
+@-ms-keyframes color-trans {
+  0% {
+    color: #d47500;
+  }
+  25% {
+    color: #aa6b51;
+  }
+  50% {
+    color: #914f15;
+  }
+  75% {
+    color: #802200;
+  }
+  100% {
+    color: #352903;
+  }
+}
+
+@-o-keyframes color-trans {
+  0% {
+    color: #d47500;
+  }
+  25% {
+    color: #aa6b51;
+  }
+  50% {
+    color: #914f15;
+  }
+  75% {
+    color: #802200;
+  }
+  100% {
+    color: #352903;
+  }
+}
+
+@keyframes color-trans {
+  0% {
+    color: #d47500;
+  }
+  25% {
+    color: #aa6b51;
+  }
+  50% {
+    color: #914f15;
+  }
+  75% {
+    color: #802200;
+  }
+  100% {
+    color: #352903;
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@-webkit-keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@-moz-keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@-o-keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* widely used here */
+.calcite-stepper-content {
+  font-weight: 500;
+  margin: 1px;
+  text-align: justify;
+}
+
+/* disable click events on SVGs */
+/* svg {
+	pointer-events: none;
+} */
+/* svg:hover {
+	fill: rgb(206, 136, 136);
+} */
+.pao-buffer-data-tools {
+  display: inline-block;
+}
+
+.pao-buffer-data-tools-container {
+  width: 100%;
+  padding: 0.4rem;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.tools-right {
+  text-align: right;
+}
+
+/* .trash::before {	
+	font-family: "Font Awesome 5 Pro" !important;
+	font-size: 1.2rem !important;
+	padding: 2px;
+	margin-left: 4px;
+	color: rgb(74, 74, 74);
+	font-weight: 500;
+	display: inline-block;
+	vertical-align: middle;
+} */
+/* Some icons in font awesome 5 not working without font-weight: 900 */
+.trash::before,
+.export-csv:after,
+.export-pdf:after,
+.export-csv-all:before,
+.export-pdf-all:before {
+  font-family: "Font Awesome 5 Pro" !important;
+  font-size: 1.4rem !important;
+  padding: 2px;
+  margin-left: 4px;
+  color: #4a4a4a;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* f2ed */
+.trash::before {
+  content: "\f1f8";
+}
+
+.trash:hover:before,
+.export-csv:hover:before,
+.export-csv-all:hover:before,
+.export-pdf:hover:before,
+.export-pdf-all:hover:before {
+  color: #fa0a84;
+}
+
+/* file-pdf */
+.export-pdf:before {
+  content: "Save as PDF";
+}
+.export-pdf:after {
+  content: "\f1c1";
+}
+.export-pdf-all:before {
+  content: "\f1c1";
+}
+/* file-csv */
+.export-csv:before {
+  content: "Save as CSV";
+  margin-left: 8px;
+}
+.export-csv:after {
+  content: "\f6dd";
+}
+.export-csv-all:before {
+  content: "\f56e";
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+.alert-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.action-button {
+  padding: 0.6em;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+}
+
+.action-button:hover,
+.action-button:focus {
+  background: #0079c1;
+  color: white;
+}
+
+summary {
+  color: #fa0a84;
+}
+
+.disabled {
+  color: #b3adad;
+}
+
+.esri-widget--button {
+  font-size: 20px;
+}
+
+.esri-widget--button[class*="esri-icon-trash"] {
+  background-color: #2a5a8e;
+  color: #fff;
+}
+
+.esri-screenshot {
+  background-color: #fff !important;
+}
+
+.esri-screenshot__container {
+  position: relative;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.esri-screenshot__hint {
+  padding: 0 15px;
+  -webkit-animation: esri-fade-in 250ms ease-in-out;
+  animation: esri-fade-in 250ms ease-in-out;
+}
+
+.esri-screenshot__hint-text {
+  margin: 12px 0;
+  padding: 0;
+}
+
+.esri-slider__label {
+  min-width: 43px !important;
+}
+
+.esri-slider--horizontal .esri-slider__label {
+  left: -33px !important;
+}
+
+#aerialMapViewer > .esri-view-root > .esri-ui.calcite-theme-light {
+  inset: 0px !important;
+}
+
+.esri-scale-bar.esri-widget {
+  background: rgba(251, 251, 251, 0.78) !important;
+}
+
+.esri-area-measurement-2d__hint-text,
+.esri-distance-measurement-2d__hint-text {
+  font-weight: 600;
+}
+
+/* Future-Proof Scrollbar Styles */
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbc7c7 rgba(114, 112, 112, 0.3);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(114, 112, 112, 0.3);
+  box-shadow: inset 0 0 6px rgba(114, 112, 112, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #cbc7c7;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(114, 112, 112, 0.3);
+  box-shadow: inset 0 0 6px rgba(114, 112, 112, 0.3);
+  background-color: #cbc7c7;
+}
+
+/* ********************************************
+  dataTable style for pao-table-buffer only   
+  ******************************************** */
+#pao-table-buffer.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  /* padding: 2px; */
+  line-height: 1.2;
+  font-style: inherit;
+  font-size: 0.75rem;
+  background-color: #fff;
+  text-align: left;
+  border: 0;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+#pao-table-buffer.table.no-border tr td,
+#pao-table-buffer.table.no-border tr th {
+  border-width: 0;
+}
+
+#pao-table-buffer > tbody > tr.text-top {
+  vertical-align: top;
+}
+
+#pao-table-buffer.table td {
+  vertical-align: middle;
+}
+
+#pao-table-buffer.table td > a {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+#pao-table-buffer.table th {
+  white-space: nowrap;
+}
+
+#pao-table-buffer.table.dataTable tfoot th {
+  border: 0;
+  border-bottom: 0;
+  border-top: 0;
+  border-width: 0;
+}
+
+#pao-table-buffer.table.dataTable thead th {
+  text-align: center;
+  border: 0;
+  border-bottom: 0;
+  border-top: 0;
+  position: relative;
+}
+
+.pao-table-buffer-cell-type {
+  border-left-style: solid !important;
+  border-left-width: 6px !important;
+}
+
+#pao-table-buffer.dataTables_wrapper.no-footer.dataTables_scrollBody {
+  border: 0;
+}
+
+#pao-table-buffer.dataTables_scrollHeadInner {
+  width: 100% !important;
+}
+
+#pao-table-buffer.dataTables_scroll {
+  min-height: 216px;
+}
+
+.alert-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.tab-alert {
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  transition: opacity 250ms ease-in-out;
+  transition-delay: 125ms;
+  font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin-bottom: 0.4rem;
+  &.alert-no-imagery::after {
+    white-space: pre-wrap;
+    content: "Aerial imagery is not available at this time.\ATry refreshing this page a little later. We apologize for the inconvenience.";
+  }
+  &.alert-no-layers::after {
+    white-space: pre-wrap;
+    content: "Map layers are not available at this time.\A We apologize for the inconvenience.";
+  }
+}
+
+.tab-alert.alert-no-imagery::after {
+  white-space: pre-wrap;
+  content: "Aerial imagery is not available at this time.\ATry refreshing this page a little later. We apologize for the inconvenience.";
+}
+
+.tab-alert.alert-no-layers::after {
+  white-space: pre-wrap;
+  content: "Map layers are not available at this time.\A We apologize for the inconvenience.";
+}
+
+#pao-measurements-widget {
+  padding: 4px 8px;
+  font-size: 16px;
+  bottom: 15px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%,-50%);
+}
+
+.pao-icon-parid,
+.pao-icon-condo,
+.pao-icon-coop,
+.pao-icon-subdv,
+.pao-icon-list,
+.pao-icon-point,
+.pao-icon-polygon,
+.pao-icon-rectangle,
+.pao-icon {
+  font-family: "Font Awesome 5 Pro" !important;
+  font-weight: 500;
+  font-size: 0.9rem !important;
+  display: inline-block;
+  color: rgb(1,76,141);
+}
+
+.pao-icon-parid::before {
+  content: "\f304";
+}
+
+.pao-icon-condo::before {
+  content: "\f022";
+}
+
+.pao-icon-subdv::before {
+  content: "\f022";
+}
+
+.pao-icon-coop::before {
+  content: "\f022";
+}
+
+.pao-icon-list::before {
+  content: "\f022";
+}
+
+.pao-icon-point::before {
+  content: "\f3c5";
+}
+
+.pao-icon-polygon::before {
+  content: "\f5ee";
+}
+
+.pao-icon-rectangle::before {
+  content: "\f5ef";
+}
+
+.pao-icon-disabled {
+  color: rgb(190, 190, 190);
+}
+
+.dot{
+  background-color: red;
+  width: 1rem;
+  height: 1rem;  
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+/*# sourceMappingURL=mcpao-aerial.css.map */
